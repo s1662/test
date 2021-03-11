@@ -23,16 +23,21 @@
 %>
 <table border="1">
 	<tr><td>아이디</td><td>이름</td><td>전화</td><td>주소</td><td>취미</td></tr>
-<%
-			do{
-				if(!id.equals(rs.getString(1))){%>	
+<%			
+			boolean startrow = true;
+			do{				
+				if(!id.equals(rs.getString(1))){
+					if(!startrow) out.println("</td></tr>");
+					%>	
 	<tr><td colspan="5"></td></tr>								
 	<tr><td><%=rs.getString(1) %></td><td><%=rs.getString(2) %></td>
-		<td><%=rs.getString(3) %></td><td><%=rs.getString(4) %></td><td><%=rs.getString(5) %></td></tr>				
-<%					id=rs.getString(1);
-				}else{%>						
-				<tr><td colspan="4"></td><td><%=rs.getString(5) %></td></tr>				
-<%		
+		<td><%=rs.getString(3) %></td><td><%=rs.getString(4) %></td>		
+<%					
+					out.print("<td>"+rs.getString(5));
+					id=rs.getString(1);
+					startrow = false;
+				}else{
+					out.print(", " + rs.getString(5));
 				}			
 			}while(rs.next());
 %>
